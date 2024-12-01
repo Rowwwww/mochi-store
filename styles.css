@@ -1,3 +1,32 @@
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 每行顯示 5 個圖片 */
+    gap: 20px; /* 每個項目之間的間隙 */
+    justify-items: center; /* 水平對齊 */
+    padding: 20px;
+}
+
+.product-card {
+    width: 100%; /* 使每個圖片卡片填滿格子 */
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.product-card img {
+    width: 100%;
+    max-width: 150px; /* 設置圖片最大寬度 */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* 放大效果 */
+}
 /* 全局樣式重置 */
 * {
     margin: 0;
