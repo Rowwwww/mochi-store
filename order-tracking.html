@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單追蹤 - Mochi Store</title>
+</head>
+<body>
+    <header>
+        <h1>訂單追蹤</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="order-tracking.html">訂單追蹤</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <label for="order-id">訂單編號：</label>
+        <input type="text" id="order-id" name="order-id" placeholder="請輸入訂單編號" required>
+        <button id="track-button">查詢訂單</button>
+    </section>
+
+    <section id="order-status">
+        <h2>訂單狀態：</h2>
+        <p id="status">尚未查詢訂單。</p>
+    </section>
+
+    <script>
+        document.getElementById('track-button').addEventListener('click', function() {
+            const orderId = document.getElementById('order-id').value.trim();
+            if (!orderId) {
+                alert('請輸入訂單編號');
+                return;
+            }
+
+            // 模擬查詢訂單狀態（實際情況應該是從後端獲取）
+            fetch(`http://localhost:3000/api/orders/${orderId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 顯示訂單狀態
+                    if (data.status) {
+                        document.getElementById('status').textContent = `訂單狀態：${data.status}`;
+                    } else {
+                        document.getElementById('status').textContent = '無此訂單編號';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('status').textContent = '查詢出錯，請稍後再試！';
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+</html>
