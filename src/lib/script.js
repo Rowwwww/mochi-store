@@ -193,7 +193,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
 
     // 呼叫後端 API 發送 Email
    try {
-    const response = await emailjs.send('kobe20041124', 'service_c7v0m68', {
+    const response = await emailjs.send('kobe20041124', 'c7v0m68', {
         customerEmail: customerEmail,
         orderDetails: orderDetails,
         totalPrice: totalPrice
