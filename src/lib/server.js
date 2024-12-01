@@ -1,4 +1,10 @@
 const nodemailer = require('nodemailer');
+const express = require('express');
+const app = express();
+
+// 提供靜態檔案
+app.use(express.static('src'));
+
 
 // 創建郵件傳輸器
 const transporter = nodemailer.createTransport({
