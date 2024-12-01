@@ -1,13 +1,13 @@
 .product-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 每行顯示 5 個圖片 */
+    display: flex;
+    flex-wrap: wrap; /* 允許換行 */
     gap: 20px; /* 每個項目之間的間隙 */
-    justify-items: center; /* 水平對齊 */
+    justify-content: center; /* 水平居中對齊 */
     padding: 20px;
 }
 
 .product-card {
-    width: 100%; /* 使每個圖片卡片填滿格子 */
+    width: calc(20% - 20px); /* 每個項目的寬度是容器寬度的 20%（5 個圖片在一行） */
     padding: 10px;
     background-color: white;
     border: 1px solid #ddd;
@@ -26,6 +26,8 @@
 
 .product-card:hover {
     transform: scale(1.05); /* 放大效果 */
+}
+
 }
 /* 全局樣式重置 */
 * {
