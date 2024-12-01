@@ -192,23 +192,22 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     }
 
     // 呼叫後端 API 發送 Email
-    try {
-        const response = await fetch('http://localhost:3000/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ customerEmail, orderDetails, totalPrice })
-        });
+   try {
+    const response = await emailjs.send('kobe20041124', 'service_c7v0m68', {
+        customerEmail: customerEmail,
+        orderDetails: orderDetails,
+        totalPrice: totalPrice
+    }, 'your_user_id');
 
-        if (response.ok) {
-            alert('訂單確認 Email 已成功發送！');
-        } else {
-            alert('發送 Email 時發生錯誤，請稍後再試！');
-        }
-    } catch (error) {
-        console.error('發送 Email 發生錯誤：', error);
-        alert('系統錯誤，請稍後再試！');
+    if (response.status === 200) {
+        alert('訂單確認 Email 已成功發送！');
+    } else {
+        alert('發送 Email 時發生錯誤，請稍後再試！');
+    }
+} catch (error) {
+    console.error('發送 Email 發生錯誤：', error);
+    alert('系統錯誤，請稍後再試！');
+
     }
 });
 
