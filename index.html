@@ -1,1 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mochi Store</title>
+<link rel="stylesheet" href="../asserts/styles.css">
 
+
+</head>
+
+<body>
+    <header>
+        <h1>歡迎來到 Mochi Store</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#products">商品</a></li>
+                <li><a href="#about">購物車</a></li>
+               <li><a href="order-tracking.html">訂單追蹤</a></li> <!-- 訂單追蹤的鏈接 -->
+            </ul>
+        </nav>
+    </header>
+    
+    <div id="countdown-timer">
+    <p>限時折扣倒數：</p>
+    <p id="timer"></p>
+</div>
+
+  <!-- 優惠活動顯示區域 -->
+    <div id="promotions">
+        <!-- 這裡會顯示優惠活動提示 -->
+    </div>
+    
+    <section id="home">
+        <h2>發現最可愛的小物</h2>
+        <p>在 Mochi Store，你能找到各種療癒系的商品！</p>
+    </section>
+
+    <section id="products">
+        <h2>熱門商品</h2>
+        <div class="product-container">
+            <!-- 商品1 -->
+            <div class="product-card" data-id="1">
+                <img src="https://umart.uch.edu.tw/website/uploads_product/website_452/P0045200002328_1_9022.jpeg?_11763" alt="Product 1">
+                <p>可愛耳環</p>
+                <p>NT$100</p>
+                <button class="add-to-cart" data-price="100" data-id="1">加入購物車</button>
+                
+            </div>
+            <!-- 商品2 -->
+            <div class="product-card" data-id="2">
+                <img src="https://th.bing.com/th/id/R.2d19701df297434dd82419b5f003346c?rik=GCRbcf4u1%2fvFPg&riu=http%3a%2f%2fideatimg.cdn.ideatchina.com%2f01%2f3f%2f013fc230004e5f457314bd9b8fceeebe.jpg&ehk=tSUO46Cffv%2bc7gQlE8PGHwCDXtYGhk3tidmW1CXcxns%3d&risl=&pid=ImgRaw&r=0" alt="Product 2">
+                <p>迷你植物</p>
+                <p>NT$150</p>
+                <button class="add-to-cart" data-price="150" data-id="2">加入購物車</button>
+            </div>
+            <!-- 商品3 -->
+            <div class="product-card" data-id="3">
+                <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7qul0-lgbxztqky03l88" alt="Product 3">
+                <p>可愛杯子</p>
+                <p>NT$200</p>
+                <button class="add-to-cart" data-price="200" data-id="3">加入購物車</button>
+            </div>
+            <!-- 商品4 -->
+            <div class="product-card" data-id="4">
+                <img src="https://img.alicdn.com/i1/2488885792/TB2ZRTDmvNNTKJjSspkXXaeWFXa_!!2488885792.jpg" alt="Product 4">
+                <p>綠意小盆栽</p>
+                <p>NT$250</p>
+                <button class="add-to-cart" data-price="250" data-id="4">加入購物車</button>
+            </div>
+            <!-- 商品5 -->
+            <div class="product-card" data-id="5">
+                <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7qul2-ljrvp2lkhozq08" alt="Product 5">
+                <p>手工香氛蠟燭</p>
+                <p>NT$350</p>
+                <button class="add-to-cart" data-price="350" data-id="5">加入購物車</button>
+            </div>
+
+            <!-- 商品6 -->
+            <div class="product-card" data-id="6">
+                <img src="https://mall.iopenmall.tw/website/uploads_product/website_41706/P4170606052702_3_52823780.jpg?hash=91767" alt="Product 6">
+                <p>療癒小抱枕</p>
+                <p>NT$280</p>
+                <button class="add-to-cart" data-price="280" data-id="6">加入購物車</button>
+            </div>
+            <!-- 商品7 -->
+            <div class="product-card" data-id="7">
+                <img src="https://www.ezp.com.tw/images/Origin/570584023858/570584023858_3.jpg" alt="Product 7">
+                <p>動物造型筆</p>
+                <p>NT$30</p>
+                <button class="add-to-cart" data-price="30" data-id="7">加入購物車</button>
+            </div>
+            <!-- 商品8 -->
+            <div class="product-card" data-id="8">
+                <img src="https://down-tw.img.susercontent.com/file/sg-11134201-7rbn9-lmt1f9xdu15mda" alt="Product 8">
+                <p>卡通襪子</p>
+                <p>NT$60</p>
+                <button class="add-to-cart" data-price="60" data-id="8">加入購物車</button>
+
+            </div>
+            <!-- 商品9 -->
+            <div class="product-card" data-id="9">
+                <img src="https://tshop.r10s.com/113/943/1ea6/5bba/0096/67b8/f2e1/112dec88620242ac110003.jpg" alt="Product 9">
+                <p>水果好運筆記本</p>
+                <p>NT$80</p>
+                <button class="add-to-cart" data-price="80" data-id="9">加入購物車</button>
+
+            </div>
+            <!-- 商品10 -->
+            <div class="product-card" data-id="10">
+                <img src="https://th.bing.com/th/id/R.bdc73981697be953a31fe2c8c0a66df7?rik=dp2XJlN9HHulHg&riu=http%3a%2f%2fwww.ezp.com.tw%2fimages%2fOrigin%2f641649779352%2fDesc_641649779352_46.jpg&ehk=Mldb%2bJWmsj79cVDv0VOpuPw01aaoku9hW%2ffmFJGZCOc%3d&risl=&pid=ImgRaw&r=0" alt="Product 10">
+                <p>可愛手提袋</p>
+                <p>NT$120</p>
+                <button class="add-to-cart" data-price="120" data-id="10">加入購物車</button>
+            </div>
+
+            <!-- 商品11 -->
+            <div class="product-card" data-id="11">
+                <img src="https://searchingc.com/wp-content/uploads/2015/11/A15.jpg" alt="Product 11">
+                <p>貓咪小貼紙</p>
+                <p>NT$20</p>
+                <button class="add-to-cart" data-price="20" data-id="11">加入購物車</button>
+            </div>
+            <!-- 商品12 -->
+            <div class="product-card" data-id="12">
+                <img src="https://down-tw.img.susercontent.com/file/sg-11134201-7qvg4-ljv6648qkr2ifc" alt="Product 12">
+                <p>羊毛氈杯墊</p>
+                <p>NT$170</p>
+                <button class="add-to-cart" data-price="170" data-id="12">加入購物車</button>
+
+            </div>
+            <!-- 商品13 -->
+            <div class="product-card" data-id="13">
+                <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7r98p-lln4phk8406hbc" alt="Product 13">
+                <p>雙層收納盒</p>
+                <p>NT$180</p>
+                <button class="add-to-cart" data-price="180" data-id="13">加入購物車</button>
+            </div>
+            <!-- 商品14 -->
+            <div class="product-card" data-id="14">
+                <img src="https://img.alicdn.com/i2/1133605663/O1CN018PQkIx1rhhllsUOMj_!!1133605663.jpg" alt="Product 14">
+                <p>手工肥皂</p>
+                <p>NT$100</p>
+                <button class="add-to-cart" data-price="100" data-id="14">加入購物車</button>
+            </div>
+            <!-- 商品15 -->
+            <div class="product-card" data-id="15">
+                <img src="https://down-tw.img.susercontent.com/file/tw-11134201-7qukz-lhlxq0e39cb4eb" alt="Product 15">
+                <p>萌萌口罩</p>
+                <p>NT$60</p>
+                <button class="add-to-cart" data-price="60" data-id="15">加入購物車</button>
+            </div>
+
+            <!-- 商品16 -->
+            <div class="product-card" data-id="16">
+                <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7qul6-lgouhmhn5nopba" alt="Product 16">
+                <p>可愛風水瓶</p>
+                <p>NT$250</p>
+                <button class="add-to-cart" data-price="250" data-id="16">加入購物車</button>
+
+            </div>
+            <!-- 商品17 -->
+            <div class="product-card" data-id="17">
+                <img src="https://giftsforkevin.com/wp-content/uploads/2021/11/cat-headphones-gamers.png" alt="Product 17">
+                <p>耳機</p>
+                <p>NT$300</p>
+                <button class="add-to-cart" data-price="300" data-id="17">加入購物車</button>
+            </div>
+            <!-- 商品18 -->
+            <div class="product-card" data-id="18">
+                <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7quky-lftgyedshtt626" alt="Product 18">
+                <p>美式飲料杯</p>
+                <p>NT$150</p>
+                <button class="add-to-cart" data-price="150" data-id="18">加入購物車</button>
+            </div>
+            <!-- 商品19 -->
+            <div class="product-card" data-id="19">
+                <img src="https://down-tw.img.susercontent.com/file/6f7a0cfe89afab6dca2917e8872659e0" alt="Product 19">
+                 <p>質感手帕</p>
+                <p>NT$80</p>
+                <button class="add-to-cart" data-price="80" data-id="19">加入購物車</button>
+            </div>
+            <!-- 商品20 -->
+            <div class="product-card" data-id="20">
+                <img src="https://cbu01.alicdn.com/img/ibank/2020/132/080/15620080231_1447835829.jpg" alt="Product 20">
+                <p>精緻手鍊</p>
+                <p>NT$290</p>
+                <button class="add-to-cart" data-price="290" data-id="20">加入購物車</button>
+        
+            </div>
+    </section>
+
+    <section id="cart">
+        <h2>購物車</h2>
+        <div id="cart-items">
+            <p>你的購物車是空的。</p>
+        </div>
+        <div id="total-price">
+            <p>總金額: NT$0</p>
+        </div>
+        <button id="checkout-button">結帳</button>
+    </section>
+    
+    <section id="about">
+        <h2>關於 Mochi Store</h2>
+        <p>我們專賣各種設計精美的可愛風小物，並提供個性化的購物體驗。</p>
+    </section>
+
+    <footer id="contact">
+        <p>聯絡我們：info@mochistore.com</p>
+    </footer>
+    
+<script src="promotions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<script>
+   // 購物車陣列
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// 顯示購物車商品
+function displayCartItems() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p>你的購物車是空的。</p>';
+        return;
+    }
+
+    cart.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('cart-item');
+        itemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" width="50">
+            <p>${item.name}</p>
+            <p>價格: NT$${item.price}</p>
+            <div>
+                <button class="decrease" data-id="${item.id}">-</button>
+                <span>數量: ${item.quantity}</span>
+                <button class="increase" data-id="${item.id}">+</button>
+            </div>
+            <button class="remove-item" data-id="${item.id}">移除</button>
+        `;
+        cartItemsContainer.appendChild(itemElement);
+
+        // 增加數量
+        itemElement.querySelector('.increase').addEventListener('click', function() {
+            item.quantity++; // 增加數量
+            localStorage.setItem('cart', JSON.stringify(cart)); // 儲存至 localStorage
+            displayCartItems(); // 更新顯示
+        });
+
+        // 減少數量
+        itemElement.querySelector('.decrease').addEventListener('click', function() {
+            if (item.quantity > 1) { // 防止數量低於 1
+                item.quantity--; // 減少數量
+                localStorage.setItem('cart', JSON.stringify(cart)); // 儲存至 localStorage
+                displayCartItems(); // 更新顯示
+            }
+        });
+    });
+
+    calculateTotalPrice(); // 計算總金額
+}
+
+// 計算總金額
+function calculateTotalPrice() {
+    let totalPrice = 0;
+    cart.forEach(item => {
+        totalPrice += item.price * item.quantity; // 根據數量累加金額
+    });
+
+    document.getElementById('total-price').innerText = `總金額: NT$${totalPrice}`;
+}
+
+// 點擊「加入購物車」按鈕
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
+        const productPrice = parseInt(this.getAttribute('data-price'));
+        const productName = this.previousElementSibling.previousElementSibling.innerText;
+        const productImage = this.previousElementSibling.src;
+
+        const existingItemIndex = cart.findIndex(item => item.id === productId);
+        if (existingItemIndex === -1) {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: 1
+            });
+        } else {
+            cart[existingItemIndex].quantity++; // 如果商品已在購物車中，數量加 1
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart)); // 儲存至 localStorage
+        displayCartItems(); // 更新顯示
+    });
+});
+
+// 移除商品
+document.getElementById('cart-items').addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-item')) {
+        const productId = event.target.getAttribute('data-id');
+        cart = cart.filter(item => item.id !== productId); // 移除選擇的商品
+        localStorage.setItem('cart', JSON.stringify(cart)); // 儲存至 localStorage
+        displayCartItems(); // 更新顯示
+    }
+});
+
+// 結帳
+document.getElementById('checkout-button').addEventListener('click', function() {
+    if (cart.length === 0) {
+        alert('購物車為空，無法結帳！');
+        return;
+    }
+    window.location.href = './payment.html'; // 轉跳到結帳頁面
+});
+
+// 初始化購物車顯示
+displayCartItems();
+
+</script>
