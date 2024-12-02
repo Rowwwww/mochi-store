@@ -63,6 +63,8 @@ function updateCountdown() {
     const now = new Date().getTime();
     const distance = countdownEndTime - now;
 
+    console.log(distance); // 檢查倒數計算是否正確
+
     if (distance <= 0) {
         document.getElementById('timer').innerText = "折扣結束!";
         clearInterval(countdownInterval);
