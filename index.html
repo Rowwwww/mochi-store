@@ -7,11 +7,11 @@
 <link rel="stylesheet" href="styles.css">
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         function handleCredentialResponse(response) {
             const responsePayload = decodeJwtResponse(response.credential);
             console.log("Logged in as: " + responsePayload.email);
+              authenticateWithSupabase(responsePayload.email);
         }
 
         function initializeGoogleSignIn() {
@@ -27,8 +27,24 @@
 
         window.onload = initializeGoogleSignIn;  // 确保在页面加载时初始化
     </script>
+    
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+        // 初始化 Supabase 客戶端
+        const supabaseUrl = '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com'; // 用你的 Supabase URL 替換
+        const supabaseKey = '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'; // 用你的 Supabase Key 替換
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        async function authenticateWithSupabase(email) {
+            const { data, error } = await supabase.auth.signUp({ email });
+            if (error) {
+                console.error('Supabase authentication error:', error);
+                alert('登入失敗');
+            } else {
+                console.log('Logged in with Supabase:', data);
+            }
+        }
+    </script>
   
 </head>
     
@@ -46,9 +62,6 @@
             </ul>
         </nav>
     </header>
-    
-  <!-- 引入 Supabase 客户端 JavaScript 文件 -->
-  <script src="supabase.js"></script>
     
     <div id="countdown-timer">
     <p>限時折扣倒數：</p>
