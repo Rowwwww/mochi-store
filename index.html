@@ -19,27 +19,6 @@
             { theme: "outline", size: "large" } // Customize button theme and size
         );
 
-        // Countdown Timer
-        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 minutes from now
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownEndTime - now;
-
-            if (distance <= 0) {
-                document.getElementById('timer').innerText = "折扣結束!";
-                clearInterval(countdownInterval);
-            } else {
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
-            }
-        }
-
-        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
-    };
-
     // Handle Google Credential Response
     function handleCredentialResponse(response) {
         const responsePayload = decodeJwtResponse(response.credential);
@@ -102,6 +81,29 @@
    <div id="countdown-timer">
     <p>限時折扣剩餘時間：</p>
     <div id="timer">00:00</div>  <!-- 确保这个元素存在 -->
+       <script>
+        // Countdown Timer
+        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 minutes from now
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownEndTime - now;
+
+            if (distance <= 0) {
+                document.getElementById('timer').innerText = "折扣結束!";
+                clearInterval(countdownInterval);
+            } else {
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
+            }
+        }
+       </script>
+
+        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
+    };
+
 
   <!-- 優惠活動顯示區域 -->
     <div id="promotions">
