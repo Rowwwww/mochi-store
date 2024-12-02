@@ -6,77 +6,43 @@
     <title>Mochi Store</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-        // Initialize Google Sign-In on window load
-        window.onload = function() {
-            console.log("頁面已加載，開始初始化 Google 登錄");
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-            // Google Sign-In Initialization
+    <script>
+        // 確保 Google 登錄初始化只執行一次
+        function initializeGoogleSignIn() {
+            console.log("初始化 Google 登錄...");
+
             google.accounts.id.initialize({
                 client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
                 callback: handleCredentialResponse
             });
-
+            
             google.accounts.id.renderButton(
                 document.getElementById("google-sign-in-button"),
-                { theme: "outline", size: "large" } // Customize button theme and size
+                { theme: "outline", size: "large" } // 可自定義外觀
             );
-
             console.log("Google 登錄按鈕已渲染");
-            
-            // Your countdown timer function
-            const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
-            const countdownInterval = setInterval(updateCountdown, 1000); // 每秒更新一次
-            
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = countdownEndTime - now;
+        }
 
-                if (distance <= 0) {
-                    document.getElementById('timer').innerText = "折扣結束!";
-                    clearInterval(countdownInterval);
-                } else {
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
-                }
-            }
-        };
-
+        // 處理登錄後的回應
         function handleCredentialResponse(response) {
             const responsePayload = decodeJwtResponse(response.credential);
-            console.log("Logged in as: " + responsePayload.email);
-            authenticateWithSupabase(responsePayload.email);
+            console.log("成功登錄，使用者電子郵件：" + responsePayload.email);
+            authenticateWithSupabase(responsePayload.email);  // 可將 email 發送到 Supabase 登錄
         }
 
-        function initializeGoogleSignIn() {
-            google.accounts.id.initialize({
-                client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
-                callback: handleCredentialResponse
-            });
-            google.accounts.id.renderButton(
-                document.getElementById("google-sign-in-button"),
-                { theme: "outline", size: "large" }  // 可根据需求设置主题和尺寸
-            );
+        // 解析 JWT 回應
+        function decodeJwtResponse(credential) {
+            const token = credential.split('.')[1];
+            const decoded = atob(token);
+            return JSON.parse(decoded);
         }
 
-        function authenticateWithSupabase(email) {
-            const { data, error } = supabase.auth.signUp({ email });
-            if (error) {
-                console.error('Supabase authentication error:', error);
-                alert('登入失敗');
-            } else {
-                console.log('Logged in with Supabase:', data);
-            }
-        }
-    </script>
-  
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script>
-        const supabaseUrl = 'YOUR_SUPABASE_URL'; // Your Supabase URL
-        const supabaseKey = 'YOUR_SUPABASE_KEY'; // Your Supabase Key
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        // 初始化 Google 登錄
+        window.onload = function() {
+            initializeGoogleSignIn();
+        };
     </script>
 </head>
     
