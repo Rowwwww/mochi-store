@@ -113,19 +113,18 @@ function displayPromotions() {
     });
 }
 
-// 計算總金額
-function calculateTotalPrice() {
-    let totalPrice = 0;
-    cart.forEach(item => {
-        totalPrice += item.price * item.quantity;
-    });
+// 確保 cart 變數只在這裡宣告一次
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// 更新總金額
+function updateTotalPrice() {
+    const totalAmount = calculateCartTotal(); // 重新計算總金額
+    localStorage.setItem('totalAmount', totalAmount); // 更新到 localStorage
     const totalPriceElement = document.getElementById('total-price');
     if (totalPriceElement) {
-        totalPriceElement.innerText = `總金額: NT$${totalPrice}`;
+        totalPriceElement.textContent = `總金額: NT$${totalAmount}`;
     }
 }
-
 // 計算購物車總金額
 function calculateCartTotal() {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
