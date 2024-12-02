@@ -8,6 +8,22 @@
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
+        window.onload = function() {
+    console.log("頁面已加載，開始初始化 Google 登錄");
+    
+    // Google Sign-In Initialization
+    google.accounts.id.initialize({
+        client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+        document.getElementById("google-sign-in-button"),
+        { theme: "outline", size: "large" } // Customize button theme and size
+    );
+    
+    console.log("Google 登錄按鈕已渲染");
+};
+
         function handleCredentialResponse(response) {
             const responsePayload = decodeJwtResponse(response.credential);
             console.log("Logged in as: " + responsePayload.email);
