@@ -8,40 +8,25 @@
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-    window.onload = function() {
-        // Google Sign-In Initialization
-        google.accounts.id.initialize({
-            client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
-            callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("google-sign-in-button"),
-            { theme: "outline", size: "large" } // Customize button theme and size
-        );
-
-    // Handle Google Credential Response
-    function handleCredentialResponse(response) {
-        const responsePayload = decodeJwtResponse(response.credential);
-        console.log("Logged in as: " + responsePayload.email);
-        authenticateWithSupabase(responsePayload.email);
-    }
-
-    // Initialize Supabase Authentication
-    const supabaseUrl = 'your_supabase_url';
-    const supabaseKey = 'your_supabase_key';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-    async function authenticateWithSupabase(email) {
-        const { data, error } = await supabase.auth.signUp({ email });
-        if (error) {
-            console.error('Supabase authentication error:', error);
-            alert('登入失敗');
-        } else {
-            console.log('Logged in with Supabase:', data);
+        function handleCredentialResponse(response) {
+            const responsePayload = decodeJwtResponse(response.credential);
+            console.log("Logged in as: " + responsePayload.email);
+              authenticateWithSupabase(responsePayload.email);
         }
-    }
-</script>
 
+        function initializeGoogleSignIn() {
+            google.accounts.id.initialize({
+                client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-sign-in-button"),
+                { theme: "outline", size: "large" }  // 可根据需求设置主题和尺寸
+            );
+        }
+
+        window.onload = initializeGoogleSignIn;  // 确保在页面加载时初始化
+    </script>
     
  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
@@ -81,9 +66,11 @@
    <div id="countdown-timer">
     <p>限時折扣剩餘時間：</p>
     <div id="timer">00:00</div>  <!-- 确保这个元素存在 -->
-       <script>
-        // Countdown Timer
-        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 minutes from now
+</div>
+    <script>
+    window.onload = function() {
+        // 這裡是您的倒數計時代碼
+        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -99,10 +86,13 @@
                 document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
             }
         }
-       </script>
 
-        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
+        const countdownInterval = setInterval(updateCountdown, 1000); // 每秒更新一次
     };
+</script>
+
+
+    
 
 
   <!-- 優惠活動顯示區域 -->
