@@ -7,67 +7,33 @@
 <link rel="stylesheet" href="styles.css">
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            const responsePayload = decodeJwtResponse(response.credential);
+            console.log("Logged in as: " + responsePayload.email);
+        }
+
+        function initializeGoogleSignIn() {
+            google.accounts.id.initialize({
+                client_id: 'YOUR_GOOGLE_CLIENT_ID',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-sign-in-button"),
+                { theme: "outline", size: "large" }  // 可根据需求设置主题和尺寸
+            );
+        }
+
+        window.onload = initializeGoogleSignIn;  // 确保在页面加载时初始化
+    </script>
 
 </head>
     
-    <div id="g_id_onload"
-     data-client_id="339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse">
-    </div>
-
-<!-- 引入 Google API 客户端库 -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-
-<!-- Google 登录按钮 -->
-<button id="login-button">Google 登录</button>
-
-<script>
-// 初始化 Google 登录 API
-function initializeGAPI() {
-    gapi.load('auth2', function() {
-        gapi.auth2.init({
-            client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com'
-        }).then(function() {
-            const auth2 = gapi.auth2.getAuthInstance();
-            const loginButton = document.getElementById('login-button');
-            loginButton.addEventListener('click', function() {
-                auth2.signIn().then(function(response) {
-                    console.log('登录成功', response);
-                    handleCredentialResponse(response);
-                }).catch(function(error) {
-                    console.log('登录失败', error);
-                });
-            });
-        });
-    });
-}
-
-// 登入后处理响应
-function handleCredentialResponse(response) {
-    const userData = parseJwt(response.credential);
-    console.log("用户数据:", userData);
-}
-
-// 解析 JWT token
-function parseJwt(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    
-    return JSON.parse(jsonPayload);
-}
-
-// 在页面加载完成后初始化 Google 登录 API
-window.addEventListener('DOMContentLoaded', function() {
-    initializeGAPI();
-});
-</script>
-
-
+ 
 <body>
     <header>
+        <div id="google-sign-in-button"></div> <!-- 用于显示 Google 登录按钮 -->
         <h1>歡迎來到 Mochi Store</h1>
         <nav>
             <ul>
@@ -83,6 +49,33 @@ window.addEventListener('DOMContentLoaded', function() {
     <p>限時折扣倒數：</p>
     <p id="timer"></p>
 </div>
+    <script>
+    function startCountdown() {
+        const endDate = new Date("2024-12-25T00:00:00Z"); // 设置限时折扣结束的日期
+        const countdownElement = document.getElementById('countdown-timer');
+        
+        setInterval(function() {
+            const now = new Date();
+            const timeLeft = endDate - now;
+            
+            if (timeLeft <= 0) {
+                countdownElement.innerHTML = "活动结束！";
+                clearInterval(this);
+            } else {
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                countdownElement.innerHTML = `${hours}小时 ${minutes}分钟 ${seconds}秒`;
+            }
+        }, 1000);
+    }
+
+    window.onload = startCountdown;  // 页面加载时启动倒计时
+</script>
+
+<div id="countdown-timer"></div> <!-- 显示倒计时 -->
+
 
   <!-- 優惠活動顯示區域 -->
     <div id="promotions">
