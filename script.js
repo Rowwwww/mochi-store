@@ -5,7 +5,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 function handleCredentialResponse(response) {
     const userData = parseJwt(response.credential);
     console.log("User data:", userData);
-    // 這裡可以處理登錄後的邏輯，比如顯示用戶資訊或發送資料到後端
+    // 在這裡處理登錄後的邏輯，顯示用戶資訊或發送資料到後端
 }
 
 // 解析 JWT
@@ -40,13 +40,14 @@ function initializeGAPI() {
 
 // 綁定 Google 登錄按鈕
 function attachSignin(element) {
-    gapi.auth2.getAuthInstance().attachClickHandler(element, {},
+    gapi.auth2.getAuthInstance().attachClickHandler(element, {}, 
         googleUser => {
             const profile = googleUser.getBasicProfile();
             console.log("登錄成功，用戶資料：");
             console.log("ID:", profile.getId());
             console.log("名稱:", profile.getName());
             console.log("電子郵件:", profile.getEmail());
+            // 在這裡可以將用戶資料發送到後端
         },
         error => {
             console.error("登錄失敗:", error);
@@ -187,6 +188,9 @@ window.addEventListener('DOMContentLoaded', function () {
     displayPromotions();
     initializeGAPI();
 });
+
+         
+
 
 
 
