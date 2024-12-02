@@ -19,6 +19,47 @@ function parseJwt(token) {
     
     return JSON.parse(jsonPayload);
 }
+// 初始化 Google 登錄
+function initializeGAPI() {
+    gapi.load('auth2', function() {
+        // 初始化 Google 登錄
+        gapi.auth2.init({
+            client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',  // 用你自己的 Google OAuth 2.0 client ID
+            scope: 'profile email'  // 你希望訪問的範圍（例如：用戶的基本信息、電子郵件等）
+        }).then(function(auth2) {
+            console.log('Google API 初始化成功');
+            
+            // 設置登錄按鈕的事件處理
+            attachSignin(document.getElementById('signin-button'));  // 假設你有一個 id 為 'signin-button' 的按鈕
+        }).catch(function(error) {
+            console.error('Google 登錄初始化錯誤:', error);
+        });
+    });
+}
+
+// 設置登錄按鈕的事件處理
+function attachSignin(element) {
+    gapi.auth2.getAuthInstance().attachClickHandler(element, {}, 
+        function(googleUser) {
+            // 成功登錄後的回調函數
+            const profile = googleUser.getBasicProfile();
+            console.log("登錄用戶的基本資料：");
+            console.log("ID: " + profile.getId());
+            console.log("名稱: " + profile.getName());
+            console.log("電子郵件: " + profile.getEmail());
+            
+            // 你可以根據需要處理這些用戶資料
+            // 比如將用戶信息顯示到頁面或發送到後端等
+        },
+        function(error) {
+            // 登錄失敗的回調函數
+            console.log("登錄失敗: ", error);
+        });
+}
+
+// 調用初始化函數
+initializeGAPI();
+
 
 // 設定倒數計時的時間（例如：1 小時 30 分鐘）
 const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
