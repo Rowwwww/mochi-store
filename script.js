@@ -24,7 +24,7 @@ function initializeGAPI() {
     gapi.load('auth2', function() {
         // 初始化 Google 登錄
         gapi.auth2.init({
-            client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',  // 用你自己的 Google OAuth 2.0 client ID
+            client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',  // 用你自己的 Google OAuth 2.0 client ID
             scope: 'profile email'  // 你希望訪問的範圍（例如：用戶的基本信息、電子郵件等）
         }).then(function(auth2) {
             console.log('Google API 初始化成功');
