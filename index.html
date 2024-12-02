@@ -8,25 +8,61 @@
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        function handleCredentialResponse(response) {
-            const responsePayload = decodeJwtResponse(response.credential);
-            console.log("Logged in as: " + responsePayload.email);
-              authenticateWithSupabase(responsePayload.email);
+    window.onload = function() {
+        // Google Sign-In Initialization
+        google.accounts.id.initialize({
+            client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
+            callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("google-sign-in-button"),
+            { theme: "outline", size: "large" } // Customize button theme and size
+        );
+
+        // Countdown Timer
+        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 minutes from now
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownEndTime - now;
+
+            if (distance <= 0) {
+                document.getElementById('timer').innerText = "折扣結束!";
+                clearInterval(countdownInterval);
+            } else {
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
+            }
         }
 
-        function initializeGoogleSignIn() {
-            google.accounts.id.initialize({
-                client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com',
-                callback: handleCredentialResponse
-            });
-            google.accounts.id.renderButton(
-                document.getElementById("google-sign-in-button"),
-                { theme: "outline", size: "large" }  // 可根据需求设置主题和尺寸
-            );
-        }
+        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
+    };
 
-        window.onload = initializeGoogleSignIn;  // 确保在页面加载时初始化
-    </script>
+    // Handle Google Credential Response
+    function handleCredentialResponse(response) {
+        const responsePayload = decodeJwtResponse(response.credential);
+        console.log("Logged in as: " + responsePayload.email);
+        authenticateWithSupabase(responsePayload.email);
+    }
+
+    // Initialize Supabase Authentication
+    const supabaseUrl = 'your_supabase_url';
+    const supabaseKey = 'your_supabase_key';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function authenticateWithSupabase(email) {
+        const { data, error } = await supabase.auth.signUp({ email });
+        if (error) {
+            console.error('Supabase authentication error:', error);
+            alert('登入失敗');
+        } else {
+            console.log('Logged in with Supabase:', data);
+        }
+    }
+</script>
+
     
  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
@@ -66,34 +102,6 @@
    <div id="countdown-timer">
     <p>限時折扣剩餘時間：</p>
     <div id="timer">00:00</div>  <!-- 确保这个元素存在 -->
-</div>
-    <script>
-    window.onload = function() {
-        // 這裡是您的倒數計時代碼
-        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownEndTime - now;
-
-            if (distance <= 0) {
-                document.getElementById('timer').innerText = "折扣結束!";
-                clearInterval(countdownInterval);
-            } else {
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
-            }
-        }
-
-        const countdownInterval = setInterval(updateCountdown, 1000); // 每秒更新一次
-    };
-</script>
-
-
-    
-
 
   <!-- 優惠活動顯示區域 -->
     <div id="promotions">
