@@ -67,6 +67,30 @@
     <p>限時折扣剩餘時間：</p>
     <div id="timer">00:00</div>  <!-- 确保这个元素存在 -->
 </div>
+    <script>
+    window.onload = function() {
+        // 這裡是您的倒數計時代碼
+        const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownEndTime - now;
+
+            if (distance <= 0) {
+                document.getElementById('timer').innerText = "折扣結束!";
+                clearInterval(countdownInterval);
+            } else {
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById('timer').innerText = `${hours}時 ${minutes}分 ${seconds}秒`;
+            }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000); // 每秒更新一次
+    };
+</script>
+
 
     
 
