@@ -51,6 +51,10 @@ function attachSignin(element) {
 
 // 調用初始化函數
 initializeGAPI();
+window.addEventListener('DOMContentLoaded', function() {
+    setInterval(updateCountdown, 1000);  // 確保頁面加載後才開始倒數
+});
+
 
 // 設定倒數計時的時間（例如：1 小時 30 分鐘）
 const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
