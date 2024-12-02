@@ -197,8 +197,8 @@ document.getElementById('checkout-button').addEventListener('click', function() 
 document.getElementById('payment-form').addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    // 從 localStorage 獲取總金額
-    const totalPrice = localStorage.getItem('totalAmount');
+    // 從 localStorage 獲取總金額並轉換為數字
+    const totalPrice = parseFloat(localStorage.getItem('totalAmount')) || 0;
     
     // 模擬購物車商品資訊
     const cart = [
@@ -208,8 +208,36 @@ document.getElementById('payment-form').addEventListener('submit', async functio
 
     const orderDetails = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
 
-    // 這裡可以將訂單發送到後端等處理
+    // 顯示訂單詳細
     console.log('訂單詳細：', orderDetails);
+
+    // 設定後端 API 地址
+    const apiUrl = 'https://example.com/api/order';
+
+    // 發送訂單數據到後端
+    const orderData = {
+        totalAmount: totalPrice,
+        orderDetails: orderDetails
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
+
+        if (response.ok) {
+            console.log('訂單已成功提交');
+            // 根據需要進行頁面跳轉或其他處理
+        } else {
+            console.log('訂單提交失敗');
+        }
+    } catch (error) {
+        console.error('發送訂單時發生錯誤:', error);
+    }
 });
 
 
