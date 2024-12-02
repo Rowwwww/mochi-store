@@ -18,7 +18,6 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-
 // 設定倒數計時的時間（例如：1 小時 30 分鐘）
 const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
 
@@ -40,10 +39,10 @@ function updateCountdown() {
 
 const countdownInterval = setInterval(updateCountdown, 1000); // 每秒更新一次
 
-
 // 顯示購物車商品
 function displayCartItems() {
     const cartItemsContainer = document.getElementById('cart-items');
+    if (!cartItemsContainer) return; // 確保元素存在
     cartItemsContainer.innerHTML = '';
 
     if (cart.length === 0) {
@@ -66,6 +65,7 @@ function displayCartItems() {
 
     calculateTotalPrice();
 }
+
 // 優惠活動的資料
 const currentPromotions = [
     {
@@ -111,6 +111,7 @@ function displayPromotions() {
         }
     });
 }
+
 // 計算總金額
 function calculateTotalPrice() {
     let totalPrice = 0;
@@ -123,10 +124,13 @@ function calculateTotalPrice() {
         totalPriceElement.innerText = `總金額: NT$${totalPrice}`;
     }
 }
+
 // 頁面加載時顯示優惠活動
-window.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     displayPromotions(); // 顯示當前優惠活動
+    displayCartItems(); // 初始化購物車顯示
 });
+
 // 點擊「加入購物車」按鈕
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function() {
@@ -176,16 +180,15 @@ document.getElementById('checkout-button').addEventListener('click', function() 
     // 將總金額存入 localStorage
     localStorage.setItem('totalAmount', totalPrice);
 
-
     cart = [];
     localStorage.setItem('cart', JSON.stringify(cart));
     displayCartItems();
 
     // 跳轉到付款頁面
     window.location.href = 'payment.html';
-    
 });
 
+// 模擬提交訂單
 document.getElementById('payment-form').addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -199,6 +202,8 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     ];
 
     const orderDetails = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
+    console.log(orderDetails); // 模擬提交的訂單
+});
 
 
 
