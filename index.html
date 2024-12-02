@@ -49,32 +49,7 @@
     <p>限時折扣倒數：</p>
     <p id="timer"></p>
 </div>
-    <script>
-    function startCountdown() {
-        const endDate = new Date("2024-12-25T00:00:00Z"); // 设置限时折扣结束的日期
-        const countdownElement = document.getElementById('countdown-timer');
-        
-        setInterval(function() {
-            const now = new Date();
-            const timeLeft = endDate - now;
-            
-            if (timeLeft <= 0) {
-                countdownElement.innerHTML = "活动结束！";
-                clearInterval(this);
-            } else {
-                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                
-                countdownElement.innerHTML = `${hours}小时 ${minutes}分钟 ${seconds}秒`;
-            }
-        }, 1000);
-    }
-
-    window.onload = startCountdown;  // 页面加载时启动倒计时
-</script>
-
-<div id="countdown-timer"></div> <!-- 显示倒计时 -->
+    
 
 
   <!-- 優惠活動顯示區域 -->
