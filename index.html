@@ -389,12 +389,8 @@ document.getElementById('checkout-button').addEventListener('click', function() 
         alert('購物車為空，無法結帳！');
         return;
     }
-    window.location.href = './payment.html'; // 轉跳到結帳頁面
+    window.location.href = 'payment.html'; // 轉跳到結帳頁面
 });
 
 // 初始化購物車顯示
 displayCartItems();
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
