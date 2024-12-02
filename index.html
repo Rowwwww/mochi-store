@@ -11,7 +11,7 @@
 </head>
     
     <div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+     data-client_id="339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com"
      data-callback="handleCredentialResponse">
     </div>
 
@@ -26,7 +26,7 @@
 function initializeGAPI() {
     gapi.load('auth2', function() {
         gapi.auth2.init({
-            client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+            client_id: '339731562973-cg62nkbor6p8tkgh34jjj7bq0fig2nkq.apps.googleusercontent.com'
         }).then(function() {
             const auth2 = gapi.auth2.getAuthInstance();
             const loginButton = document.getElementById('login-button');
