@@ -1,13 +1,15 @@
-// 確保cart變數只在這裡宣告一次
+// 確保 cart 變數只在這裡宣告一次
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// 處理登錄回應
 function handleCredentialResponse(response) {
     const userData = parseJwt(response.credential);
     console.log("User data:", userData);
     
-    // 這裡可以處理登錄後的邏輯，比如顯示用戶資訊或發送資料到後端
+    // 可以處理登錄後的邏輯，比如顯示用戶資訊或發送資料到後端
 }
 
+// 解析 JWT
 function parseJwt(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -42,7 +44,6 @@ const countdownInterval = setInterval(updateCountdown, 1000); // 每秒更新一
 // 顯示購物車商品
 function displayCartItems() {
     const cartItemsContainer = document.getElementById('cart-items');
-    if (!cartItemsContainer) return; // 確保元素存在
     cartItemsContainer.innerHTML = '';
 
     if (cart.length === 0) {
@@ -125,10 +126,15 @@ function calculateTotalPrice() {
     }
 }
 
+// 計算購物車總金額
+function calculateCartTotal() {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
 // 頁面加載時顯示優惠活動
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function() {
     displayPromotions(); // 顯示當前優惠活動
-    displayCartItems(); // 初始化購物車顯示
+    displayCartItems(); // 顯示購物車內容
 });
 
 // 點擊「加入購物車」按鈕
@@ -188,7 +194,6 @@ document.getElementById('checkout-button').addEventListener('click', function() 
     window.location.href = 'payment.html';
 });
 
-// 模擬提交訂單
 document.getElementById('payment-form').addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -202,7 +207,9 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     ];
 
     const orderDetails = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
-    console.log(orderDetails); // 模擬提交的訂單
+
+    // 這裡可以將訂單發送到後端等處理
+    console.log('訂單詳細：', orderDetails);
 });
 
 
