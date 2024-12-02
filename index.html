@@ -16,6 +16,55 @@
 </div>
     <button id="signin-button">使用 Google 登錄</button>
 
+<!-- 引入 Google API 客户端库 -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- Google 登录按钮 -->
+<button id="login-button">Google 登录</button>
+
+<script>
+// 初始化 Google 登录 API
+function initializeGAPI() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+        }).then(function() {
+            const auth2 = gapi.auth2.getAuthInstance();
+            const loginButton = document.getElementById('login-button');
+            loginButton.addEventListener('click', function() {
+                auth2.signIn().then(function(response) {
+                    console.log('登录成功', response);
+                    handleCredentialResponse(response);
+                }).catch(function(error) {
+                    console.log('登录失败', error);
+                });
+            });
+        });
+    });
+}
+
+// 登入后处理响应
+function handleCredentialResponse(response) {
+    const userData = parseJwt(response.credential);
+    console.log("用户数据:", userData);
+}
+
+// 解析 JWT token
+function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    
+    return JSON.parse(jsonPayload);
+}
+
+// 在页面加载完成后初始化 Google 登录 API
+window.addEventListener('DOMContentLoaded', function() {
+    initializeGAPI();
+});
+</script>
 
 
 <body>
