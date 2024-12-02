@@ -1,6 +1,24 @@
 // 確保cart變數只在這裡宣告一次
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+function handleCredentialResponse(response) {
+    const userData = parseJwt(response.credential);
+    console.log("User data:", userData);
+    
+    // 這裡可以處理登錄後的邏輯，比如顯示用戶資訊或發送資料到後端
+}
+
+function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    
+    return JSON.parse(jsonPayload);
+}
+
+
 // 設定倒數計時的時間（例如：1 小時 30 分鐘）
 const countdownEndTime = new Date().getTime() + 90 * 60 * 1000; // 90 分鐘後
 
@@ -181,36 +199,6 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     ];
 
     const orderDetails = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
-
-    // 獲取使用者輸入的 Email
-    const customerEmail = document.getElementById('email').value;
-
-    // 檢查 Email 是否填寫
-    if (!customerEmail) {
-        alert('請填寫 Email 地址！');
-        return;
-    }
-
-    // 呼叫後端 API 發送 Email
-  try {
-        const response = await fetch('http://localhost:3000/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ customerEmail, orderDetails, totalPrice })
-        });
-
-        if (response.ok) {
-            alert('訂單確認 Email 已成功發送！');
-        } else {
-            alert('發送 Email 時發生錯誤，請稍後再試！');
-        }
-    } catch (error) {
-        console.error('發送 Email 發生錯誤：', error);
-        alert('系統錯誤，請稍後再試！');
-    }
-});
 
 
 
